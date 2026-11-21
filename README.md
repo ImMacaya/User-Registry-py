@@ -89,7 +89,7 @@ python -m venv .venv
 ### Instalar o projeto (editável) + dependências de desenvolvimento
 
 ```bash
-python -m pip install -e ".[dev]
+python -m pip install -e ".[dev]"
 ```
 
 ---
