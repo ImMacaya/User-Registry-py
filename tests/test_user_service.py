@@ -171,6 +171,7 @@ def test_deactivate_user():
 
     # Assert
     user = repo.get_by_email(email="macaya@example.com")
+    assert user is not None
     assert user.is_active is False
 
 
@@ -204,6 +205,7 @@ def test_activate_user():
 
     # Assert
     user = repo.get_by_email("macaya@example.com")
+    assert user is not None
     assert user.is_active is True
 
 
