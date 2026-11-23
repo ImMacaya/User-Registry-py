@@ -146,8 +146,72 @@ def test_update_name_with_nonexistent_user():
     service = UserService(repo)
 
     # Act + Assert
-    with pytest.raises(ValueError, match="Usuário não encontrado."):
+    with pytest.raises(ValueError, match=r"^Usuário não encontrado\.$"):
         service.update_name(
             email="nothingthere@example.com",
             new_name="Macaya",
         )
+
+
+def test_deactivate_user():
+    # Arrange
+    repo = FakeUserRepository()
+    service = UserService(repo)
+
+    service.create_user(
+        name="Macaya",
+        email="macaya@example.com",
+        password="Macaya@1234!",
+    )
+
+    # Act
+    service.deactivate(
+        email="macaya@example.com",
+    )
+
+    # Assert
+    user = repo.get_by_email(email="macaya@example.com")
+    assert user.is_active is False
+
+
+def test_deactivate_nonexistent_user():
+    # Arrange
+    repo = FakeUserRepository()
+    service = UserService(repo)
+
+    # Act + Assert
+    with pytest.raises(ValueError, match=r"^Usuário não encontrado\.$"):
+        service.deactivate(email="nothingthere@example.com")
+
+
+def test_activate_user():
+    # Arrange
+    repo = FakeUserRepository()
+    service = UserService(repo)
+
+    service.create_user(
+        name="Macaya", email="macaya@example.com", password="Macaya@1234!"
+    )
+
+    service.deactivate(email="macaya@example.com")
+
+    user = repo.get_by_email("macaya@example.com")
+    assert user is not None
+    assert user.is_active is False
+
+    # Act
+    service.activate(email="macaya@example.com")
+
+    # Assert
+    user = repo.get_by_email("macaya@example.com")
+    assert user.is_active is True
+
+
+def test_activate_nonexistent_user():
+    # Arrange
+    repo = FakeUserRepository()
+    service = UserService(repo)
+
+    # Act + Assert
+    with pytest.raises(ValueError, match=r"^Usuário não encontrado\.$"):
+        service.activate(email="nothingthere@example.com")
