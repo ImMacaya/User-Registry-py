@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 @dataclass
@@ -15,4 +15,8 @@ class User:
 
     @staticmethod
     def now_iso() -> str:
-        return datetime.utcnow().isoformat(timespec="seconds") + "Z"
+        return (
+            datetime.now(timezone.utc)
+            .isoformat(timespec="seconds")
+            .replace("+00:00", "Z")
+        )

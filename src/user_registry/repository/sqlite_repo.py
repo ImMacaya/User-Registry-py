@@ -1,7 +1,6 @@
 import sqlite3
-from typing import Optional, List
 
-from user_registry.config import DB_PATH, DATA_DIR, SCHEMA_PATH
+from user_registry.config import DATA_DIR, DB_PATH, SCHEMA_PATH
 from user_registry.domain.models import User
 from user_registry.repository.interfaces import IUserRepository
 
@@ -42,7 +41,7 @@ class SQLiteUserRepository(IUserRepository):
                 ),
             )
 
-    def get_by_email(self, email: str) -> Optional[User]:
+    def get_by_email(self, email: str) -> User | None:
         with self._connect() as con:
             row = con.execute(
                 """
@@ -67,7 +66,7 @@ class SQLiteUserRepository(IUserRepository):
                 updated_at=row[7],
             )
 
-    def list_all(self) -> List[User]:
+    def list_all(self) -> list[User]:
         with self._connect() as con:
             rows = con.execute(
                 """

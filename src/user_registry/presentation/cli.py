@@ -1,8 +1,9 @@
 import typer
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
 from rich.prompt import Prompt
+from rich.table import Table
+
 from user_registry.repository.sqlite_repo import SQLiteUserRepository
 from user_registry.service.user_service import UserService
 
@@ -34,7 +35,7 @@ def create(
                 "✅ Usuário criado com sucesso!", title="create", border_style="green"
             )
         )
-    except Exception as ex:
+    except ValueError as ex:
         console.print(Panel.fit(f"❌ Erro: {ex}", title="create", border_style="red"))
         raise typer.Exit(code=1)
 
@@ -92,7 +93,7 @@ def update(
         console.print(
             Panel.fit("✅ Nome atualizado!", title="update", border_style="green")
         )
-    except Exception as ex:
+    except ValueError as ex:
         console.print(Panel.fit(f"❌ Erro: {ex}", title="update", border_style="red"))
         raise typer.Exit(code=1)
 
@@ -110,7 +111,7 @@ def deactivate(
                 "✅ Usuário desativado.", title="deactivate", border_style="yellow"
             )
         )
-    except Exception as ex:
+    except ValueError as ex:
         console.print(
             Panel.fit(f"❌ Erro: {ex}", title="deactivate", border_style="red")
         )
@@ -126,7 +127,7 @@ def activate(email: str = typer.Option(..., "--email", "-e", help="Email do usu�
         console.print(
             Panel.fit("✅ Usuário ativado.", title="activate", border_style="green")
         )
-    except Exception as ex:
+    except ValueError as ex:
         console.print(Panel.fit(f"❌ Erro: {ex}", title="activate", border_style="red"))
         raise typer.Exit(code=1)
 

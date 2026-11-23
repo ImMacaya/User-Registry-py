@@ -1,12 +1,12 @@
 import os
-import time
 import subprocess
 import threading
+import time
 from datetime import datetime
 from pathlib import Path
 
-from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 # ======= CONFIG =======
 DEBOUNCE_SECONDS = 2.0  # espera um pouco após o último save
@@ -22,12 +22,18 @@ IGNORED_FILES = {"Thumbs.db"}
 
 def run(cmd):
     """Executa comando e retorna (returncode, stdout)."""
-    p = subprocess.run(cmd, capture_output=True, text=True, shell=False)
+    p = subprocess.run(
+        cmd,
+        check=False,
+        capture_output=True,
+        text=True,
+        shell=False,
+    )
     return p.returncode, (p.stdout or "").strip(), (p.stderr or "").strip()
 
 
 def in_repo_root():
-    code, out, err = run(["git", "rev-parse", "--is-inside-work-tree"])
+    code, out, _ = run(["git", "rev-parse", "--is-inside-work-tree"])
     return code == 0 and out.strip() == "true"
 
 
