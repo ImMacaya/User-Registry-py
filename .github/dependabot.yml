@@ -1,26 +1,33 @@
 version: 2
+
 updates:
   - package-ecosystem: "pip"
     directory: "/"
+
     schedule:
       interval: "weekly"
       day: "monday"
       time: "09:00"
+      timezone: "America/Sao_Paulo"
+
     target-branch: "main"
     open-pull-requests-limit: 5
 
-    # Agrupa updates para evitar muitos PRs pequenos
+    # Group minor and patch dependency updates.
     groups:
       python-dependencies:
+        applies-to: "version-updates"
         patterns:
           - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
-    # Labels padrão para facilitar triagem
+    # Apply labels to dependency pull requests.
     labels:
       - "dependencies"
-      - "automerge-candidate"
 
-    # (Opcional) Mensagem no commit da PR
+    # Use conventional commit messages.
     commit-message:
       prefix: "chore"
       include: "scope"

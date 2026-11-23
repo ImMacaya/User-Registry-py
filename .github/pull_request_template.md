@@ -1,64 +1,52 @@
-# 📌 Descrição
+## Description
 
-Descreva de forma objetiva o que foi alterado e o motivo.
+<!-- Provide a clear and concise summary of the changes. -->
 
----
+## Related Issue
 
-## ✅ Tipo de mudança
-Marque com `x`:
+<!-- Link the related issue, if applicable. -->
 
-- [ ] 🐛 Correção de bug (fix)
-- [ ] ✨ Nova funcionalidade (feature)
-- [ ] ♻️ Refatoração (refactor)
-- [ ] 🧪 Testes (tests)
-- [ ] 📝 Documentação (docs)
-- [ ] 🔧 Tarefa interna / manutenção (chore)
-- [ ] 🚀 CI / pipeline (ci)
+Closes #
 
----
+## Type of Change
 
-## 🔍 O que foi alterado?
-- Item 1
-- Item 2
-- Item 3
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Refactoring
+- [ ] Documentation
+- [ ] Security improvement
+- [ ] Maintenance / Chore
+- [ ] Breaking change
 
----
+## Changes Made
 
-## 🧪 Como testar?
-Comandos sugeridos:
+<!-- Describe the main changes introduced by this PR. -->
 
-```bash
-python -m pip install -e ".[dev]"
-ruff check .
-ruff format .
-pytest
-```
+-
 
-Passos manuais (se aplicável):
-1. Execute: `python -m user_registry --help`
-2. Execute: `python -m user_registry list`
-3. Verifique o resultado no terminal
+## Testing
 
----
+<!-- Describe how the changes were tested. -->
 
-## 📸 Evidências (prints/logs)
-Se aplicável, anexe prints ou logs:
+- [ ] Unit tests passed
+- [ ] Lint checks passed
+- [ ] Formatting checks passed
+- [ ] CI checks passed
+- [ ] Manual testing completed (if applicable)
 
-- [ ] Print do CLI
-- [ ] Output de erro
-- [ ] Resultado esperado
+## Security Considerations
 
----
+<!-- Describe any security implications or write "None". -->
 
-## ✅ Checklist
-- [ ] Código segue o padrão do projeto (Ruff)
-- [ ] Testes foram adicionados/atualizados (quando necessário)
-- [ ] `pytest` passou localmente
-- [ ] `ruff check .` passou localmente
-- [ ] README/Docs atualizados (se necessário)
-- [ ] Sem arquivos gerados/versionados indevidamente (ex.: `.data/`, `.venv/`)
+## Checklist
 
----
+- [ ] My code follows the project's coding standards.
+- [ ] I have reviewed my own changes.
+- [ ] I have added or updated tests where applicable.
+- [ ] I have updated documentation where necessary.
+- [ ] No sensitive information or credentials were committed.
+- [ ] This PR is ready for review.
 
-## 📝 Observações adicionais
-Inclua contexto extra, riscos, decisões técnicas ou próximos passos.
+## Additional Notes
+
+<!-- Add any relevant information, screenshots, or context. -->
