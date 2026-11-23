@@ -1,4 +1,5 @@
 import pytest
+
 from user_registry.service.user_service import UserService
 
 
@@ -58,6 +59,7 @@ def test_create_user_rejects_duplicate_email():
             password="Senha5678",
         )
 
+
 def test_login_normalizes_email():
     # Arrange
     repo = FakeUserRepository()
@@ -65,13 +67,12 @@ def test_login_normalizes_email():
 
     # Act
     service.create_user(
-        name="Macaya",
-        email="macaya@example.com",
-        password="SecurePass123!"
+        name="Macaya", email="macaya@example.com", password="SecurePass123!"
     )
 
     # Assert
     assert service.login(" MACAYA@EXAMPLE.COM ", "SecurePass123!") is True
+
 
 def test_login_with_wrong_password():
     # Arrange
@@ -80,13 +81,12 @@ def test_login_with_wrong_password():
 
     # Act
     service.create_user(
-        name="Macaya",
-        email="macaya@example.com",
-        password="Macaya@1234!"
+        name="Macaya", email="macaya@example.com", password="Macaya@1234!"
     )
 
     # Assert
     assert service.login(" MACAYA@EXAMPLE.COM ", "Macaya!1234@") is False
+
 
 def test_login_with_nonexistent_user():
     # Arrange
@@ -94,13 +94,11 @@ def test_login_with_nonexistent_user():
     service = UserService(repo)
 
     # Act
-    resultado = service.login(
-        "naoexiste@example.com",
-        "Macaya@1234!"
-    )
+    resultado = service.login("naoexiste@example.com", "Macaya@1234!")
 
     # Assert
     assert resultado is False
+
 
 def test_login_with_inactive_user():
     # Arrange
@@ -120,8 +118,9 @@ def test_login_with_inactive_user():
     # Assert
     assert service.login("macaya@example.com", "Macaya@1234!") is False
 
+
 def test_update_user_name():
-    #Arrange
+    # Arrange
     repo = FakeUserRepository()
     service = UserService(repo)
 
@@ -139,6 +138,7 @@ def test_update_user_name():
     # Assert
     usuario = repo.get_by_email(email="macaya@example.com")
     assert usuario.name == "Macaynha"
+
 
 def test_update_name_with_nonexistent_user():
     # Arrange

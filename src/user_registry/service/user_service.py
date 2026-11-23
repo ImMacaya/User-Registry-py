@@ -1,4 +1,5 @@
 import uuid
+
 from user_registry.domain.models import User
 from user_registry.domain.validators import (
     normalize_email,
@@ -6,12 +7,12 @@ from user_registry.domain.validators import (
     validate_name,
     validate_password,
 )
+from user_registry.repository.interfaces import IUserRepository
 from user_registry.security.password import (
     generate_salt,
     hash_password,
     verify_password,
 )
-from user_registry.repository.interfaces import IUserRepository
 
 
 class UserService:

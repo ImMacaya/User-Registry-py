@@ -1,6 +1,5 @@
 import pytest
-from src.user_registry.service.user_service import UserService
-from tests.test_user_service import FakeUserRepository
+
 from user_registry.domain.validators import (
     normalize_email,
     validate_email,

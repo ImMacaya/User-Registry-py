@@ -1,7 +1,7 @@
-import os
+import base64
 import hashlib
 import hmac
-import base64
+import os
 
 _ITERATIONS = 120_000
 _ALG = "sha256"
