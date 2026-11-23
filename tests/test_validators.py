@@ -1,5 +1,8 @@
 import pytest
+from src.user_registry.service.user_service import UserService
+from tests.test_user_service import FakeUserRepository
 from user_registry.domain.validators import (
+    normalize_email,
     validate_email,
     validate_name,
     validate_password,
@@ -32,3 +35,36 @@ def test_validate_name_fail_empty():
 def test_validate_name_fail_too_short():
     with pytest.raises(ValueError):
         validate_name("A")
+
+
+def test_normalize_email_uppercase():
+    # Arrange
+    email = "MACAYA@EXAMPLE.COM"
+
+    # Act
+    result = normalize_email(email)
+
+    # Assert
+    assert result == "macaya@example.com"
+
+
+def test_normalize_email_whitespace():
+    # Arrange
+    email = " macaya@example.com "
+
+    # Act
+    result = normalize_email(email)
+
+    # Assert
+    assert result == "macaya@example.com"
+
+
+def test_normalize_email_mixed_case_and_whitespace():
+    # Arrange
+    email = " MACAYA@EXAMPLE.COM "
+
+    # Act
+    result = normalize_email(email)
+
+    # Assert
+    assert result == "macaya@example.com"

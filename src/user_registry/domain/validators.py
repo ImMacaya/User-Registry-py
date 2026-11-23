@@ -3,6 +3,11 @@ import re
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
+def normalize_email(email: str) -> str:
+    """Normalize an email address."""
+    return email.strip().lower()
+
+
 def validate_email(email: str) -> None:
     if not EMAIL_RE.match(email):
         raise ValueError("Email inválido. Ex: nome@dominio.com")
