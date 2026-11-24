@@ -54,7 +54,7 @@ def test_create_user_rejects_duplicate_email():
     # Assert
     with pytest.raises(ValueError, match="Já existe"):
         service.create_user(
-            name="Outro Usuario",
+            name="Super Macaya",
             email=" MACAYA@EXAMPLE.COM ",
             password="Senha5678",
         )
@@ -94,10 +94,10 @@ def test_login_with_nonexistent_user():
     service = UserService(repo)
 
     # Act
-    resultado = service.login("naoexiste@example.com", "Macaya@1234!")
+    result = service.login("naoexiste@example.com", "Macaya@1234!")
 
     # Assert
-    assert resultado is False
+    assert result is False
 
 
 def test_login_with_inactive_user():
@@ -136,8 +136,8 @@ def test_update_user_name():
     )
 
     # Assert
-    usuario = repo.get_by_email(email="macaya@example.com")
-    assert usuario.name == "Macaynha"
+    user = repo.get_by_email(email="macaya@example.com")
+    assert user.name == "Macaynha"
 
 
 def test_update_name_with_nonexistent_user():
@@ -217,3 +217,81 @@ def test_activate_nonexistent_user():
     # Act + Assert
     with pytest.raises(ValueError, match=r"^Usuário não encontrado\.$"):
         service.activate(email="nothingthere@example.com")
+
+
+def test_update_name_normalizes_email():
+    # Arrange
+    repo = FakeUserRepository()
+    service = UserService(repo)
+
+    service.create_user(
+        name="Macaya",
+        email="macaya@example.com",
+        password="Macaya@1234!",
+    )
+
+    # Act
+    service.update_name(
+        email=" MACAYA@EXAMPLE.COM ",
+        new_name="Macacaya",
+    )
+
+    # Assert
+    user = repo.get_by_email(email="macaya@example.com")
+    assert user is not None
+    assert user.name == "Macacaya"
+
+
+def test_deactivate_normalizes_email():
+    # Arrange
+
+    repo = FakeUserRepository()
+    service = UserService(repo)
+
+    service.create_user(
+        name="Macaya",
+        email="macaya@example.com",
+        password="Macaya@1234!",
+    )
+
+    user = repo.get_by_email("macaya@example.com")
+    assert user is not None
+    assert user.is_active is True
+
+    # Act
+    service.deactivate(email=" MACAYA@EXAMPLE.COM ")
+
+    # Assert
+    user = repo.get_by_email("macaya@example.com")
+    assert user is not None
+    assert user.is_active is False
+
+
+def test_activate_normalizes_email():
+    # Arrange
+    repo = FakeUserRepository()
+    service = UserService(repo)
+
+    service.create_user(
+        name="Macaya",
+        email="macaya@example.com",
+        password="Macaya@1234!",
+    )
+
+    user = repo.get_by_email("macaya@example.com")
+    assert user is not None
+    assert user.is_active is True
+
+    service.deactivate(email="macaya@example.com")
+
+    user = repo.get_by_email("macaya@example.com")
+    assert user is not None
+    assert user.is_active is False
+
+    # Act
+    service.activate(email=" MACAYA@EXAMPLE.COM ")
+
+    # Assert
+    user = repo.get_by_email("macaya@example.com")
+    assert user is not None
+    assert user.is_active is True
