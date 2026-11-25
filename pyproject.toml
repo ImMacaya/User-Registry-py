@@ -16,6 +16,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "pytest>=8.0.0",
+  "pytest-cov>=7.0.0",
   "ruff>=0.6.0",
   "pre-commit>=3.7.0",
 ]
@@ -33,3 +34,14 @@ addopts = "-q"
 [tool.ruff]
 line-length = 88
 target-version = "py310"
+
+[tool.coverage.run]
+source = ["user_registry"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"
