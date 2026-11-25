@@ -141,11 +141,89 @@ python -m user_registry login -e "daniel@email.com"
 
 ---
 
-## 🧪 Testes
+## 🧪 Test Coverage
+
+The project uses `pytest`, `pytest-cov`, and `coverage.py`
+to measure statement and branch coverage.
+
+### Development Setup
+
+Install the project and its development dependencies:
 
 ```bash
-pytest
+python -m pip install -e ".[dev]"
 ```
+
+### Running Tests
+
+Run the complete test suite:
+
+```bash
+python -m pytest
+```
+
+### Terminal Coverage Report
+
+Run tests and display uncovered lines:
+
+```bash
+python -m pytest --cov --cov-report=term-missing
+```
+
+### HTML Coverage Report
+
+Generate an interactive HTML coverage report:
+
+```bash
+python -m pytest --cov --cov-report=html
+```
+
+Open `htmlcov/index.html` in your browser.
+
+### Complete Coverage Report
+
+Generate terminal, HTML, and XML coverage reports:
+
+```bash
+python -m pytest --cov --cov-report=term-missing --cov-report=html --cov-report=xml
+```
+
+### Initial Coverage Baseline
+
+The following metrics represent the initial local coverage
+baseline established during the implementation of Issue #7.
+
+| Metric | Baseline |
+|---|---:|
+| Automated tests | 25 |
+| Overall coverage | 44.03% |
+| UserService coverage | 98.39% |
+| Validators coverage | 100% |
+| Password module coverage | 100% |
+| SQLite repository coverage | 0% |
+| CLI coverage | 0% |
+
+These metrics represent a historical baseline, not live
+coverage statistics.
+
+### Continuous Integration
+
+GitHub Actions automatically runs tests and generates
+coverage reports for Python 3.10, 3.11, and 3.12.
+
+HTML and XML reports are uploaded as workflow artifacts:
+
+- `coverage-python-3.10`
+- `coverage-python-3.11`
+- `coverage-python-3.12`
+
+Coverage artifacts are retained for 30 days.
+
+Generated coverage files are excluded from version control.
+
+No minimum coverage threshold is currently enforced.
+Future improvements will be guided by uncovered code
+and testing requirements.
 
 ---
 
