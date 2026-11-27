@@ -25,3 +25,9 @@ venv/
 
 #Data
 .data/
+
+# Test coverage
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
